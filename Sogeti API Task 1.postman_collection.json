@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "6146833a-bddb-433c-8a0e-d51df4dd4c9e",
+		"name": "Sogeti API Task 1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15282904",
+		"_collection_link": "https://dark-space-872584.postman.co/workspace/New-Team-Workspace~bf76c46d-dc3e-430c-9db9-858d0f28e978/collection/15282904-6146833a-bddb-433c-8a0e-d51df4dd4c9e?action=share&source=collection_link&creator=15282904"
+	},
+	"item": [
+		{
+			"name": "Verify Status Code and Content Type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content type is JSON\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.zippopotam.us/de/bw/stuttgart",
+					"protocol": "http",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"de",
+						"bw",
+						"stuttgart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Response Time",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is below 1s\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.zippopotam.us/de/bw/stuttgart",
+					"protocol": "http",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"de",
+						"bw",
+						"stuttgart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Country and State",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Country is Germany and State is Baden-Württemberg\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.country).to.equal(\"Germany\");\r",
+							"    pm.expect(jsonData.state).to.equal(\"Baden-Württemberg\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.zippopotam.us/de/bw/stuttgart",
+					"protocol": "http",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"de",
+						"bw",
+						"stuttgart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Post Code and Place Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Place name for Post Code 70597 is Stuttgart Degerloch\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var placeName;\r",
+							"\r",
+							"    // Iterate through the array of places to find the post code '70597'\r",
+							"    for (var i = 0; i < jsonData.places.length; i++) {\r",
+							"        if (jsonData.places[i][\"post code\"] === \"70597\") {\r",
+							"            placeName = jsonData.places[i][\"place name\"];\r",
+							"            break; // Exit the loop once the matching post code is found!\r",
+							"        }\r",
+							"    }\r",
+							"\r",
+							"    pm.expect(placeName).to.equal(\"Stuttgart Degerloch\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.zippopotam.us/de/bw/stuttgart",
+					"protocol": "http",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"de",
+						"bw",
+						"stuttgart"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

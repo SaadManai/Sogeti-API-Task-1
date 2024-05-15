@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "14c4c989-d0ac-4763-87dc-a5bf71855563",
+		"name": "Sogeti API Task 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15282904",
+		"_collection_link": "https://dark-space-872584.postman.co/workspace/New-Team-Workspace~f05eeb8b-150c-4063-8b45-ca876be9420d/collection/15282904-14c4c989-d0ac-4763-87dc-a5bf71855563?action=share&source=collection_link&creator=15282904"
+	},
+	"item": [
+		{
+			"name": "Verify Status Code and Content Type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content type is JSON\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\", \"application/json\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.zippopotam.us/{{Country}}/{{Postal Code}}",
+					"protocol": "http",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"{{Country}}",
+						"{{Postal Code}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Response Time",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is below 1s\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.zippopotam.us/{{Country}}/{{Postal Code}}",
+					"protocol": "http",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"{{Country}}",
+						"{{Postal Code}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Place Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const csvData = pm.iterationData.toObject();\r",
+							"\r",
+							"pm.test(\"Verify Place Name\", function () {\r",
+							"    const placeName = csvData[\"Place Name\"];\r",
+							"    \r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.places[0]['place name']).to.equal(placeName);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.zippopotam.us/{{Country}}/{{Postal Code}}",
+					"protocol": "http",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"{{Country}}",
+						"{{Postal Code}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
